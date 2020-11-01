@@ -1,37 +1,67 @@
-import React from 'react';
+import React , {useState} from 'react';
 
-const Formulario = () => (
+const Formulario = () => {
 
-    <form
+    const [nombre, guardarNombre] = useState('');
+    const [cantidad, guardarCantidad] = useState(0);
 
-    >
-        <h2>Agrega tus gastos</h2>
+    const registrarGasto  = e => {
 
-        <div className="campo">
-            <label>Nombre de gasto: </label>
+        e.preventDefault();
+
+        alert("registrarGasto")
+
+        // validar
+
+        // construir el gasto
+
+        // pasar el pasgo al component princial
+    
+        // resetear el form
+
+    }
+
+    return (
+
+        <form
+        onSubmit={registrarGasto}
+        >
+            <h2>Agrega tus gastos</h2>
+
+            <div className="campo">
+                <label>Nombre de gasto: </label>
+                <input
+                    className="u-full-width"
+                    placeholder="Ej. Alimento"
+                    type="text"
+                    value = {nombre}
+                    onChange={e => guardarNombre(e.target.value)}
+                />
+            </div>
+            <div className="campo">
+                <label>Cantidad de gastos: </label>
+                <input
+                    className="u-full-width"
+                    placeholder="Ej. 10"
+                    type="number"
+                    value={cantidad}
+                    onChange={e => guardarCantidad(parseInt(e.target.value))}
+                />
+            </div>
+
             <input
-                className="u-full-width"
-                placeholder="Ej. Alimento"
-                type="text"
+                type="submit"
+                className="button-primary u-full-width"
+                value="Agregar gasto"
+            
             />
-        </div>
-        <div className="campo">
-            <label>Cantidad de gastos: </label>
-            <input
-                className="u-full-width"
-                placeholder="Ej. 10"
-                type="number"
-            />
-        </div>
 
-        <input
-            type="submit"
-            className="button-primary u-full-width"
-            value="Agregar gasto"
-        />
+        </form>
 
-    </form>
 
-);
+    );
+
+
+}
 
 export default Formulario;
