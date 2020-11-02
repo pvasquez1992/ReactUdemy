@@ -1,32 +1,57 @@
-import React , {useState} from 'react';
+import React, { useState } from 'react';
+import Error from './Error';
+import shortid from 'shortid';
 
-const Formulario = () => {
+const Formulario = ({agregarGasto, guardarCrearGasto}) => {
 
     const [nombre, guardarNombre] = useState('');
     const [cantidad, guardarCantidad] = useState(0);
+    const [error, guardarError] = useState(false);
 
-    const registrarGasto  = e => {
+
+    const registrarGasto = e => {
 
         e.preventDefault();
 
-        alert("registrarGasto")
 
         // validar
 
+        if (error || cantidad < 1 || isNaN(cantidad)) {
+            guardarError(true);
+            return;
+        }
+        guardarError(false);
+
         // construir el gasto
 
+        const gasto =  {
+                nombre, 
+                cantidad,
+                id: shortid.generate()
+        }
+        console.log("gasto", gasto);
+
         // pasar el pasgo al component princial
-    
+
+        agregarGasto(gasto);
+        guardarCrearGasto(true);
+
         // resetear el form
+        guardarCantidad(0);
+        guardarNombre('');
 
     }
 
     return (
 
         <form
-        onSubmit={registrarGasto}
+            onSubmit={registrarGasto}
         >
             <h2>Agrega tus gastos</h2>
+
+            {
+              error  ? <Error mensaje="Campos obligatorios o presupuesto incorrecto" />  : null
+            }
 
             <div className="campo">
                 <label>Nombre de gasto: </label>
@@ -34,7 +59,7 @@ const Formulario = () => {
                     className="u-full-width"
                     placeholder="Ej. Alimento"
                     type="text"
-                    value = {nombre}
+                    value={nombre}
                     onChange={e => guardarNombre(e.target.value)}
                 />
             </div>
@@ -53,7 +78,7 @@ const Formulario = () => {
                 type="submit"
                 className="button-primary u-full-width"
                 value="Agregar gasto"
-            
+
             />
 
         </form>
