@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import styled from '@emotion/styled';
+import {calculaMarca, obtenerDiferenciaYear} from '../helper'
 
 const Campo = styled.div`
 display:flex;
@@ -43,6 +44,13 @@ margin-top:1rem;
 
 `;
 
+const Error = styled.div`
+    background-color: red;
+    color: white;
+    padding: 1rem;
+    width:100%;
+    text-align: center;
+`;
 
 const Formulario = () => {
 
@@ -51,6 +59,9 @@ const Formulario = () => {
         year: 0,
         plan: ''
     });
+
+    const [error, guardarError] = useState(false);
+
 
     const { marca, year, plan } = datos;
 
@@ -64,9 +75,31 @@ const Formulario = () => {
     }
 
     const cotizarSeguro = e => {
+        e.preventDefault();
 
+        if (marca.trim() === '' || plan.trim() === '' || year.trim() === '') {
+            guardarError(true);
+            console.log('err');
+            return;
+        }
+        guardarError(false);
+
+        let resultado = 2000;
+
+        const dif = obtenerDiferenciaYear(year);
+        console.log('dif', dif);
+
+
+        resultado -= ((dif * 3) * resultado) /100;
+    
+
+        resultado = calculaMarca(marca) * resultado;
+
+        console.log('res ' , resultado);
 
     }
+
+
 
     return (
 
@@ -90,7 +123,7 @@ const Formulario = () => {
             <Campo>
                 <Label>Año</Label>
                 <Select
-                    name="marca"
+                    name="year"
                     value={year}
                     onChange={obtenerInfo}
                 >
@@ -127,7 +160,7 @@ const Formulario = () => {
 
 
             </Campo>
-            <Boton type="button">Cotitzar</Boton>
+            <Boton type="submit">Cotitzar</Boton>
         </form>
 
     );
