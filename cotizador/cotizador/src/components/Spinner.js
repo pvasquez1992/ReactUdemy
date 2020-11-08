@@ -1,7 +1,6 @@
 import React from 'react';
 import './Spinner.css';
 
-
 const Spinner = () => {
 
     return (
@@ -19,10 +18,6 @@ const Spinner = () => {
             <div className="sk-circle11 sk-child"></div>
             <div className="sk-circle12 sk-child"></div>
         </div>
-
     );
-
-
 }
-
 export default Spinner;
