@@ -52,7 +52,7 @@ const Error = styled.div`
     text-align: center;
 `;
 
-const Formulario = ({guardarResumen}) => {
+const Formulario = ({guardarResumen, guardarCargando}) => {
 
     const [datos, guardarDatos] = useState({
         marca: '',
@@ -102,17 +102,20 @@ const Formulario = ({guardarResumen}) => {
 
         console.log('res ' , resultado);
 
-        guardarResumen({
-            cotizacion:resultado,
-            datos:datos
-        });
+        guardarCargando(true);
+
+        setTimeout(() => {
+            guardarCargando(false);
+
+            guardarResumen({
+                cotizacion:resultado,
+                datos:datos
+            });
+            
+        }, 3000);
 
     }
-
-
-
     return (
-
         <form
             onSubmit={cotizarSeguro}
         >
