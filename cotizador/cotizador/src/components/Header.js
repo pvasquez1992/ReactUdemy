@@ -8,8 +8,8 @@ const ContenedorHeader = styled.header`
     color:#FFFFFF;
 `;
 const  TextoHeader = styled.h1`
-  font-size : 2rem;
-  margin:0 ;
+  font-size : 2rem; 
+  margin:0  ;
   font-family: 'Slabo 27px', serif;
   text-align:center;
 
